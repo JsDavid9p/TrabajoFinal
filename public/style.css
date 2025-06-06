@@ -1,0 +1,410 @@
+/* public/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@400;700&display=swap');
+
+:root {
+  --font-primary: 'Poppins', sans-serif;
+  --font-monospace: 'Roboto Mono', monospace;
+
+  --color-background: #121212; /* Fondo oscuro */
+  --color-surface: #1e1e1e;   /* Superficies ligeramente más claras */
+  --color-primary: #BB86FC;  /* Morado como primario (Material Design Dark Theme) */
+  --color-primary-variant: #3700B3;
+  --color-secondary: #03DAC6; /* Teal como secundario */
+  --color-text: #e0e0e0;      /* Texto claro */
+  --color-text-muted: #a0a0a0;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-error: #CF6679;
+
+  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --border-radius: 8px;
+  --transition-speed: 0.3s;
+  --transition-effect: ease-in-out;
+}
+
+/* --- Reseteo Básico --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth; /* Animación de desplazamiento suave para anclas */
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.7;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden; /* Evitar scroll horizontal */
+}
+
+/* --- Encabezado y Navegación Principal --- */
+.main-header {
+  background-color: var(--color-surface);
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.main-nav {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  /* Estilo "Magic Text" aplicado directamente aquí */
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color var(--transition-speed) var(--transition-effect);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-secondary);
+  transition: width var(--transition-speed) var(--transition-effect);
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  color: var(--color-text);
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus::after {
+  width: 100%;
+}
+
+
+/* --- Contenedor Principal y Envoltura de Contenido --- */
+.content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinea arriba para que el contenido no siempre esté centrado verticalmente */
+  padding: 2rem 1rem;
+  width: 100%;
+}
+
+.container {
+  background-color: var(--color-surface);
+  padding: 2rem 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medium);
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+}
+
+/* --- Texto Mágico para Encabezados --- */
+.magic-text-container span, .nav-logo { /* Se aplica al span dentro o al logo directamente */
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-primary));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: magic-text-flow 8s linear infinite;
+}
+
+@keyframes magic-text-flow {
+  0% { background-position: 0% center; }
+  50% { background-position: 200% center; }
+  100% { background-position: 0% center; }
+}
+
+h1.magic-text-container { margin-bottom: 1.5rem; }
+h1.magic-text-container span { font-size: 2.2rem; line-height: 1.2; }
+
+/* --- Estilos de Página de Inicio (inicio.ejs) --- */
+.hero-section p {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.figure-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.figure-card {
+  background-color: rgba(255,255,255,0.05);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-speed) var(--transition-effect),
+              box-shadow var(--transition-speed) var(--transition-effect);
+}
+.figure-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+}
+.figure-card h2 {
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  border-bottom: none; /* Quitar borde heredado */
+}
+
+/* --- Estilos de Página de Opciones (figura_opciones.ejs) --- */
+.options-section p {
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+}
+.calculation-options {
+  display: flex;
+  flex-direction: column; /* Para que los botones estén uno debajo del otro en móvil */
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+@media (min-width: 600px) {
+  .calculation-options {
+    flex-direction: row; /* Botones lado a lado en pantallas más grandes */
+    justify-content: center;
+  }
+}
+
+/* --- Formularios (formulario.ejs) --- */
+.calculation-form {
+  margin-top: 2rem;
+  text-align: left; /* Alineación para etiquetas y campos */
+}
+.form-group {
+  margin-bottom: 1.5rem;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+.form-group input[type="number"] {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background-color: rgba(255,255,255,0.05);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  color: var(--color-text);
+  font-family: var(--font-monospace);
+  font-size: 1rem;
+  transition: border-color var(--transition-speed) var(--transition-effect),
+              box-shadow var(--transition-speed) var(--transition-effect);
+}
+.form-group input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 3px rgba(var(--color-secondary), 0.3);
+}
+
+/* --- Botones Animados (con borde iluminado) --- */
+.animated-button {
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--color-secondary);
+  background-color: transparent;
+  border: 2px solid var(--color-secondary);
+  border-radius: var(--border-radius);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: color var(--transition-speed) var(--transition-effect),
+              background-color var(--transition-speed) var(--transition-effect);
+  z-index: 1;
+}
+
+.animated-button.primary-action, .animated-button.submit-button {
+  background-color: var(--color-secondary);
+  color: var(--color-background); /* Texto oscuro sobre fondo claro del botón */
+  border-color: var(--color-secondary);
+}
+.animated-button.primary-action:hover, .animated-button.submit-button:hover {
+  background-color: transparent;
+  color: var(--color-secondary);
+}
+
+
+.animated-button::before { /* El efecto de iluminación */
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%; /* Ancho grande para cubrir el botón al girar */
+  height: 300%;
+  background: conic-gradient(
+    transparent,
+    transparent,
+    transparent,
+    var(--color-primary) /* Color del brillo */
+  );
+  transform-origin: center center;
+  transform: translate(-50%, -50%);
+  animation: rotate-glow 3s linear infinite paused; /* Pausado inicialmente */
+  z-index: -1; /* Detrás del contenido del botón */
+  opacity: 0;
+  transition: opacity var(--transition-speed) var(--transition-effect);
+}
+
+.animated-button:hover::before,
+.animated-button:focus::before {
+  animation-play-state: running;
+  opacity: 0.7; /* Hacer visible el brillo */
+}
+
+@keyframes rotate-glow {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+
+/* --- Mensajes de Resultado y Error --- */
+.message {
+  margin-top: 2rem;
+  padding: 1.2rem 1.5rem;
+  border-radius: var(--border-radius);
+  border-left-width: 5px;
+  border-left-style: solid;
+  text-align: left;
+}
+.message.error-message {
+  background-color: rgba(var(--color-error), 0.1);
+  border-left-color: var(--color-error);
+  color: var(--color-error);
+}
+.message.error-message strong {
+  color: var(--color-error);
+}
+.message.result-message {
+  background-color: rgba(var(--color-secondary), 0.1);
+  border-left-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+.message.result-message h3 {
+  color: var(--color-secondary);
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  border-bottom: none;
+}
+.message .result-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: var(--font-monospace);
+  color: var(--color-text); /* Valor del resultado en texto claro para destacar */
+  margin-bottom: 0.5rem;
+}
+.message .input-echo {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+/* --- Enlaces de Navegación dentro de las secciones --- */
+.back-link, .home-link {
+  display: inline-block;
+  margin-top: 2rem;
+  margin-right: 1rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color var(--transition-speed) var(--transition-effect);
+}
+.back-link:hover, .home-link:hover {
+  color: var(--color-secondary);
+}
+.navigation-links {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.5rem;
+}
+
+/* --- Pie de Página --- */
+.main-footer-bar {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin-top: auto; /* Empuja el footer hacia abajo */
+  border-top: 1px solid var(--color-border);
+}
+
+/* --- Animaciones de Entrada y Scroll (simples) --- */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeIn forwards 0.8s var(--transition-effect);
+  animation-delay: 0.2s; /* Pequeño retraso para que se note */
+}
+.fade-in-item { /* Para elementos individuales dentro de una sección */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn forwards 0.6s var(--transition-effect);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-pop-in {
+  opacity: 0;
+  transform: scale(0.9);
+  animation: popIn forwards 0.5s var(--transition-effect);
+  animation-delay: 0.1s;
+}
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Pequeños ajustes para responsividad --- */
+@media (max-width: 768px) {
+  h1.magic-text-container span { font-size: 1.8rem; }
+  .container { padding: 1.5rem; }
+  .main-nav { flex-direction: column; gap: 0.5rem; }
+  .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+}
