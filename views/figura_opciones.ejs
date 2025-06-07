@@ -1,0 +1,30 @@
+<%- 
+  // Incluye el encabezado común y pasa el título dinámico según la figura seleccionada
+  include('partials/header', { titulo: figuraNombre }) 
+%>
+
+<section class="options-section fade-in-section">
+  <!-- Título principal con el nombre de la figura -->
+  <h1 class="magic-text-container"><span><%= figuraNombre %></span></h1>
+  
+  <!-- Mensaje descriptivo para el usuario -->
+  <p>Elige qué deseas calcular para el <%= figuraNombre.toLowerCase() %>.</p>
+  
+  <!-- Opciones de cálculo: Área o Perímetro -->
+  <div class="calculation-options">
+    <a href="<%= urlArea %>" class="animated-button primary-action">
+      Calcular Área
+    </a>
+    <a href="<%= urlPerimetro %>" class="animated-button secondary-action">
+      Calcular Perímetro
+    </a>
+  </div>
+  
+  <!-- Enlace para volver a la página principal de selección de figuras -->
+  <a href="/" class="back-link">&larr; Volver a la selección de figuras</a>
+</section>
+
+<%- 
+  // Incluye el pie de página común
+  include('partials/footer') 
+%>

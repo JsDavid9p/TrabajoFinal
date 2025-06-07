@@ -1,0 +1,22 @@
+<%- include('partials/header', { titulo: 'Bienvenido' }) %>
+
+<section class="hero-section">
+  <h1 class="magic-text-container"><span>Calculadora Geométrica </span></h1>
+  <p class="fade-in-item">Selecciona una figura para comenzar a calcular su área y perímetro.</p>
+  <div class="figure-selection fade-in-item" style="animation-delay: 0.2s;">
+    <a href="/rombo" class="figure-card animated-button">
+      <h2>Rombo</h2>
+      <p>Calcula propiedades del rombo.</p>
+    </a>
+    <a href="/pentagono" class="figure-card animated-button">
+      <h2>Pentágono</h2>
+      <p>Calcula propiedades del pentágono regular.</p>
+    </a>
+    <a href="/hexagono" class="figure-card animated-button">
+      <h2>Hexágono</h2>
+      <p>Calcula propiedades del hexágono regular.</p>
+    </a>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

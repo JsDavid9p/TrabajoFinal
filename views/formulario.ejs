@@ -1,0 +1,70 @@
+<section class="form-section fade-in-section">
+  <!-- Título dinámico según el tipo de cálculo y figura -->
+  <h1 class="magic-text-container"><span><%= tipoCalculo %> de <%= figuraNombre %></span></h1>
+
+  <!-- Formulario dinámico para ingresar datos de la figura -->
+  <form action="<%= actionUrl %>" method="POST" class="calculation-form">
+    <% 
+      // Genera los campos del formulario según el array 'inputs'
+      inputs.forEach(input => { 
+    %>
+      <div class="form-group">
+        <label for="<%= input.name %>"><%= input.label %>:</label>
+        <input
+          type="<%= input.type %>"
+          id="<%= input.name %>"
+          name="<%= input.name %>"
+          step="<%= input.step || 'any' %>"
+          required
+          value="<%= datosEntrada && datosEntrada[input.name] !== undefined ? datosEntrada[input.name] : '' %>"
+          aria-label="<%= input.label %>"
+        >
+      </div>
+    <% }); %>
+    <button type="submit" class="animated-button submit-button">Calcular</button>
+  </form>
+
+  <!-- Muestra mensaje de error si existe -->
+  <% if (error) { %>
+    <div class="message error-message animate-pop-in">
+      <p><strong>Error:</strong> <%= error %></p>
+    </div>
+  <% } %>
+
+  <!-- Muestra el resultado si existe -->
+  <% if (resultado && resultado.valor !== undefined) { %>
+    <div class="message result-message animate-pop-in">
+      <h3>Resultado del <%= tipoCalculo.toLowerCase() %>:</h3>
+      <p class="result-value"><%= resultado.valor %></p>
+      <% if (datosEntrada) { %>
+        <!-- Muestra los datos ingresados por el usuario -->
+        <p class="input-echo"><strong>Datos ingresados:</strong>
+          <% 
+            // Construye una lista de los datos ingresados con sus etiquetas
+            let entries = []; 
+            for (const key in datosEntrada) { 
+              entries.push(inputs.find(i=>i.name===key)?.label + ': ' + datosEntrada[key]); 
+            } 
+          %>
+          <%= entries.join(', ') %>
+        </p>
+      <% } %>
+    </div>
+  <% } %>
+  
+  <%
+    // Ajusta el nombre de la figura para la URL (sin acentos)
+    let baseFigurePath = figuraNombre.toLowerCase().split(' ')[0];
+    if (baseFigurePath === 'pentágono') baseFigurePath = 'pentagono'; // Ajuste para URL
+    if (baseFigurePath === 'hexágono') baseFigurePath = 'hexagono'; // Ajuste para URL
+  %>
+  <div class="navigation-links">
+      <!-- Enlace para volver a las opciones de la figura -->
+      <a href="/<%= baseFigurePath %>" class="back-link">&larr; Volver a opciones de <%= figuraNombre %></a>
+      <!-- Enlace para ir al inicio -->
+      <a href="/" class="home-link">Ir al Inicio</a>
+  </div>
+
+</section>
+
+<%- include('partials/footer') %>

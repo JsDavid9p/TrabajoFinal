@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Metadatos y título dinámico según la figura seleccionada -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo de Área y Perímetro - <%= figura %></title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Menú de navegación para seleccionar la figura -->
+    <nav>
+      <a href="/rombo">Rombo</a>
+      <a href="/pentagono">Pentágono</a>
+      <a href="/hexagono">Hexágono</a>
+    </nav>
+
+    <h1>Calculadora de Figuras Geométricas</h1>
+
+    <% if (figura) { %>
+      <!-- Sección de formulario para la figura seleccionada -->
+      <h2>Cálculos para: <%= figura %></h2>
+      <form action="<%= actionUrl %>" method="POST">
+        <% inputs.forEach(input => { %>
+          <div>
+            <input
+              type="<%= input.type %>"
+              id="<%= input.name %>"
+              name="<%= input.name %>"
+              step="any" <%# Permite decimales %>
+              required
+              value="<%= datosEntrada && datosEntrada[input.name] !== undefined ? datosEntrada[input.name] : '' %>"
+            >
+          </div>
+        <% }); %>
+        <button type="submit">Calcular</button>
+      </form>
+    <% } else { %>
+      <!-- Mensaje de bienvenida si no hay figura seleccionada -->
+      <h2>Bienvenido</h2>
+      <p>Por favor, selecciona una figura del menú de navegación para comenzar.</p>
+    <% } %>
+
+    <% if (error) { %>
+      <!-- Muestra mensaje de error si existe -->
+      <div class="error">
+        <p><strong>Error:</strong> <%= error %></p>
+      </div>
+    <% } %>
+
+    <% if (resultado) { %>
+      <!-- Muestra los resultados si existen -->
+      <div class="resultado">
+        <h3>Resultados para <%= figura %>:</h3>
+        <% if (datosEntrada) { %>
+            <!-- Lista los datos de entrada proporcionados por el usuario -->
+            <p><strong>Datos de entrada:</strong></p>
+            <ul>
+                <% for (const key in datosEntrada) { %>
+                    <li><%= key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1') %>: <%= datosEntrada[key] %></li>
+                <% } %>
+            </ul>
+        <% } %>
+        <p><strong>Área:</strong> <%= resultado.area %></p>
+        <p><strong>Perímetro:</strong> <%= resultado.perimetro %></p>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>
